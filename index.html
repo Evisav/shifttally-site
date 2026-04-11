@@ -1,17 +1,303 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<title>ShiftTally</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ShiftTally</title>
+  <meta
+    name="description"
+    content="ShiftTally helps workers with multiple jobs, pay structures, and overtime rules track earnings and verify paychecks."
+  />
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #0b1020;
+      --panel: #121933;
+      --panel-2: #1a2345;
+      --text: #f3f6ff;
+      --muted: #a8b3d1;
+      --accent: #6ee7b7;
+      --accent-2: #60a5fa;
+      --border: rgba(255, 255, 255, 0.08);
+      --shadow: 0 20px 50px rgba(0, 0, 0, 0.35);
+      --radius: 20px;
+      --max: 1100px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      font-family: Inter, Arial, Helvetica, sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(96, 165, 250, 0.18), transparent 35%),
+        radial-gradient(circle at top right, rgba(110, 231, 183, 0.14), transparent 30%),
+        var(--bg);
+      color: var(--text);
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .container {
+      width: min(100% - 32px, var(--max));
+      margin: 0 auto;
+    }
+
+    .nav {
+      padding: 22px 0;
+    }
+
+    .nav-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 14px 18px;
+      backdrop-filter: blur(10px);
+    }
+
+    .brand {
+      font-size: 1.1rem;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+    }
+
+    .brand span {
+      color: var(--accent);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 18px;
+      flex-wrap: wrap;
+    }
+
+    .nav-links a {
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .nav-links a:hover {
+      color: var(--text);
+    }
+
+    .hero {
+      padding: 56px 0 28px;
+    }
+
+    .hero-card {
+      background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.03));
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 48px 32px;
+    }
+
+    .eyebrow {
+      display: inline-block;
+      margin-bottom: 16px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(110, 231, 183, 0.12);
+      color: var(--accent);
+      font-size: 0.85rem;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+    }
+
+    h1 {
+      margin: 0 0 16px;
+      font-size: clamp(2rem, 5vw, 4rem);
+      line-height: 1.05;
+      letter-spacing: -0.03em;
+    }
+
+    .hero p {
+      margin: 0;
+      max-width: 760px;
+      color: var(--muted);
+      font-size: 1.05rem;
+      line-height: 1.7;
+    }
+
+    .cta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-top: 28px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 48px;
+      padding: 0 18px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      font-weight: 600;
+      transition: 0.2s ease;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      color: #08111f;
+      border: none;
+    }
+
+    .btn-secondary {
+      background: rgba(255,255,255,0.04);
+      color: var(--text);
+    }
+
+    .btn:hover {
+      transform: translateY(-1px);
+      opacity: 0.96;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+      padding: 28px 0 64px;
+    }
+
+    .card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 22px;
+    }
+
+    .card h2 {
+      margin: 0 0 10px;
+      font-size: 1.05rem;
+    }
+
+    .card p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.65;
+      font-size: 0.97rem;
+    }
+
+    .footer {
+      padding: 0 0 40px;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .footer-card {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      flex-wrap: wrap;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 18px 20px;
+    }
+
+    .footer strong {
+      color: var(--text);
+    }
+
+    @media (max-width: 860px) {
+      .grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-card {
+        padding: 34px 22px;
+      }
+
+      .nav-inner {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+    }
+  </style>
 </head>
 <body>
+  <header class="nav">
+    <div class="container">
+      <div class="nav-inner">
+        <div class="brand">Shift<span>Tally</span></div>
+        <nav class="nav-links">
+          <a href="privacy.html">Privacy Policy</a>
+          <a href="terms.html">Terms of Use</a>
+          <a href="mailto:info@eventvisav.com">Contact</a>
+        </nav>
+      </div>
+    </div>
+  </header>
 
-<h1>ShiftTally</h1>
+  <main>
+    <section class="hero">
+      <div class="container">
+        <div class="hero-card">
+          <div class="eyebrow">A product of Event Vision AV, LLC</div>
+          <h1>Track your earnings.<br />Verify your paycheck.</h1>
+          <p>
+            ShiftTally is a professional pay tracking app built for workers with
+            multiple jobs, pay rates, overtime rules, and complex pay structures.
+            Log shifts, track earnings, and compare what you should have been paid.
+          </p>
+          <div class="cta-row">
+            <a class="btn btn-primary" href="mailto:info@eventvisav.com">Contact Support</a>
+            <a class="btn btn-secondary" href="privacy.html">View Privacy Policy</a>
+          </div>
+        </div>
+      </div>
+    </section>
 
-<p>ShiftTally helps workers with multiple jobs track earnings and verify paychecks.</p>
+    <section>
+      <div class="container">
+        <div class="grid">
+          <div class="card">
+            <h2>Built for complex pay</h2>
+            <p>
+              Track multiple jobs, pay rates, and overtime structures in one place.
+            </p>
+          </div>
+          <div class="card">
+            <h2>Paycheck verification</h2>
+            <p>
+              Compare your expected earnings against what actually hits your paycheck.
+            </p>
+          </div>
+          <div class="card">
+            <h2>Local-first by design</h2>
+            <p>
+              Your work and pay data stays on your device. ShiftTally does not currently support cloud sync.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
 
-<p>Coming Soon</p>
-
-<p>Support: support@yourdomain.com</p>
-
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-card">
+        <div>
+          <strong>Event Vision AV, LLC</strong><br />
+          Publisher of ShiftTally
+        </div>
+        <div>
+          Support: <a href="mailto:info@eventvisav.com">info@eventvisav.com</a>
+        </div>
+      </div>
+    </div>
+  </footer>
 </body>
 </html>
